@@ -1,8 +1,16 @@
-import  express from "express";
 import "dotenv/config"
+import  express from "express";
+import v1Router from "./v1/routes/productRoutes.js"
+import DB from "./database/config.js";
+import cors from 'cors'
+DB()
+const app =express();
+const PORT = process.env.PORT || 3000;
+app.use(cors())
+app.use(express.json())
 
-const app =express()
 
-app.get("/",(req,res)=>res.send("nothing to show")) 
 
-app.listen(3000,()=>{console.log(`server up on por ${process.env.PORT} `)}) 
+app.use("/api/v1/products",v1Router)
+
+app.listen(PORT,()=>{console.log(`server up on por ${PORT} `)}) 
